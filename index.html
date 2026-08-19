@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thifal Salsabila | Data Analyst & Web Developer</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --bg:#0d0717;
+  --section-grad:linear-gradient(135deg,#0d0717 0%,#1a0b2e 100%);
+  --accent-1:#a855f7;
+  --accent-2:#c084fc;
+  --accent-3:#8b5cf6;
+  --accent-4:#d946ef;
+  --grad:linear-gradient(135deg,#a855f7,#c084fc);
+  --grad-2:linear-gradient(135deg,#8b5cf6,#d946ef);
+  --text:#ffffff;
+  --text-2:#cccccc;
+  --text-3:#aaaaaa;
+  --text-4:#888888;
+  --glass:rgba(20,20,20,0.8);
+  --glass-border:rgba(255,255,255,0.1);
+  --card:rgba(255,255,255,0.04);
+  --card-border:rgba(255,255,255,0.1);
+  --ease:cubic-bezier(0.4,0,0.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'SF Pro Display',-apple-system,'Segoe UI',Roboto,sans-serif;
+  background:var(--bg);
+  color:var(--text-2);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);
+  background-size:50px 50px;
+  z-index:-1;
+  pointer-events:none;
+}
+.gradient-text{
+  background:var(--grad);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-name{
+  display:block;
+  font-size:4rem;
+  font-weight:800;
+  letter-spacing:-1.5px;
+  line-height:1.05;
+  background:linear-gradient(135deg,#c084fc 0%,#e9d5ff 50%,#ffffff 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:0.5rem;
+}
+.loading-screen{
+  position:fixed;inset:0;
+  background:var(--bg);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  z-index:9999;
+  transition:opacity 0.6s ease,visibility 0.6s ease;
+}
+.loading-screen.hidden{opacity:0;visibility:hidden;}
+.loader-ring{
+  width:90px;height:90px;border-radius:50%;
+  border:3px solid transparent;
+  border-top-color:var(--accent-1);
+  border-right-color:var(--accent-4);
+  animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loader-text{
+  margin-top:1.5rem;
+  font-size:1.8rem;font-weight:800;
+  background:var(--grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:pulse 1.2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
+.loader-dots{display:flex;gap:0.5rem;margin-top:1rem;}
+.loader-dot{width:8px;height:8px;border-radius:50%;background:var(--accent-2);animation:bounce 1.4s ease-in-out infinite;}
+.loader-dot:nth-child(2){animation-delay:0.2s;}
+.loader-dot:nth-child(3){animation-delay:0.4s;}
+@keyframes bounce{0%,80%,100%{transform:scale(0.6);opacity:0.3;}40%{transform:scale(1.2);opacity:1;}}
+::-webkit-scrollbar{width:10px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--grad);border-radius:10px;}
+::-webkit-scrollbar-thumb:hover{background:var(--accent-2);}
+.navbar{
+  position:fixed;top:1rem;left:50%;transform:translateX(-50%);
+  width:calc(100% - 2rem);max-width:1200px;
+  z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0.7rem 1.2rem;
+  background:var(--glass);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid var(--glass-border);
+  border-radius:50px;
+  transition:all 0.3s ease;
+}
+.navbar.scrolled{box-shadow:0 8px 30px rgba(168,85,247,0.25);border-color:rgba(192,132,252,0.3);}
+.logo{
+  font-size:1.8rem;font-weight:800;letter-spacing:-0.5px;
+  background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.nav-links{display:flex;gap:0.3rem;list-style:none;}
+.nav-links a{
+  position:relative;overflow:hidden;
+  color:var(--text-3);text-decoration:none;
+  font-weight:600;font-size:0.95rem;
+  padding:0.5rem 1rem;border-radius:50px;
+  transition:color 0.3s ease;
+}
+.nav-links a:hover{color:var(--text);}
+.nav-links a.active{
+  color:#fff;
+  background:var(--grad);
+  box-shadow:0 4px 18px rgba(168,85,247,0.45);
+}
+.lang-toggle{
+  background:rgba(168,85,247,0.15);
+  border:1px solid var(--glass-border);
+  padding:0.45rem 0.9rem;border-radius:50px;
+  color:var(--accent-2);font-weight:700;font-size:0.82rem;
+  cursor:pointer;transition:all 0.3s ease;white-space:nowrap;
+}
+.lang-toggle:hover{background:rgba(168,85,247,0.3);border-color:var(--accent-1);color:#fff;}
+.mobile-menu-btn{display:none;background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;}
+.section{padding:7rem 2rem;position:relative;}
+.section-container{max-width:1200px;margin:0 auto;}
+.section-header{text-align:center;margin-bottom:4rem;}
+.section-title{font-size:3rem;font-weight:800;color:#fff;margin-bottom:0.8rem;letter-spacing:-0.5px;}
+.section-subtitle{color:var(--text-4);font-size:1.1rem;max-width:600px;margin:0 auto;}
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:7rem 2rem 5rem;position:relative;overflow:hidden;
+  background:var(--section-grad);
+}
+.hero::before{
+  content:'';position:absolute;top:-30%;right:-10%;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(168,85,247,0.18),transparent 70%);
+  animation:pulse 8s ease-in-out infinite;
+}
+.hero::after{
+  content:'';position:absolute;bottom:-30%;left:-10%;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(217,70,239,0.14),transparent 70%);
+  animation:pulse 10s ease-in-out infinite reverse;
+}
+.hero-container{
+  max-width:1200px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1.2fr 0.8fr;gap:4rem;align-items:center;
+  position:relative;z-index:1;
+}
+.hero-subtitle{font-size:1.6rem;color:var(--text-2);margin-bottom:1.4rem;font-weight:500;}
+.hero-desc{color:var(--text-4);max-width:600px;margin-bottom:2.2rem;font-size:1.05rem;}
+.hero-contact{display:flex;flex-direction:column;gap:0.8rem;margin-bottom:2.2rem;max-width:540px;}
+.hero-contact-item{
+  display:flex;align-items:center;gap:0.55rem;
+  padding:0.6rem 1.2rem;border-radius:50px;
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);
+  color:var(--text-2);font-size:1rem;font-weight:500;
+  text-decoration:none;cursor:pointer;
+  transition:all 0.35s var(--ease);position:relative;overflow:hidden;
+  width:100%;
+}
+.hero-contact-item i{color:var(--accent-2);width:16px;text-align:center;font-size:0.85rem;transition:all 0.35s var(--ease);}
+.hero-contact-item span{word-break:break-word;position:relative;z-index:1;}
+.hero-contact-item::before{
+  content:'';position:absolute;inset:0;border-radius:50px;
+  background:linear-gradient(135deg,rgba(168,85,247,0.25),rgba(255,255,255,0.08));
+  opacity:0;transition:opacity 0.35s var(--ease);z-index:0;
+}
+.hero-contact-item:hover{
+  border-color:var(--accent-2);color:#fff;
+  box-shadow:0 0 24px rgba(168,85,247,0.35),0 0 6px rgba(255,255,255,0.15);
+  transform:translateY(-2px);
+}
+.hero-contact-item:hover::before{opacity:1;}
+.hero-contact-item:hover i{color:#fff;filter:drop-shadow(0 0 6px rgba(192,132,252,0.9));}
+.hero-buttons{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn{
+  padding:1.1rem 2.5rem;border-radius:50px;font-weight:700;font-size:1rem;
+  text-decoration:none;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:0.5rem;
+  transition:all 0.35s var(--ease);position:relative;overflow:hidden;
+}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 8px 28px rgba(168,85,247,0.45);}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 38px rgba(168,85,247,0.65);}
+.btn-primary::after{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);
+  transition:left 0.5s ease;
+}
+.btn-primary:hover::after{left:100%;}
+.btn-outline{background:transparent;border:1.5px solid var(--accent-1);color:#fff;}
+.btn-outline:hover{background:rgba(168,85,247,0.2);border-color:var(--accent-2);transform:translateY(-3px);box-shadow:0 8px 24px rgba(168,85,247,0.25);}
+.profile-wrapper{display:flex;justify-content:center;}
+.profile-container{position:relative;width:300px;height:300px;}
+.profile-container::before{
+  content:'';position:absolute;inset:-12px;border-radius:50%;
+  background:var(--grad-2);animation:spin 8s linear infinite;opacity:0.85;
+}
+.profile-container::after{
+  content:'';position:absolute;inset:-12px;border-radius:50%;
+  background:var(--grad);animation:spin 12s linear infinite reverse;filter:blur(18px);opacity:0.6;
+}
+.profile-photo{
+  position:relative;width:100%;height:100%;border-radius:50%;
+  object-fit:cover;border:5px solid var(--bg);z-index:1;
+}
+.about{padding:7rem 2rem;background:var(--section-grad);}
+.about-layout{display:flex;gap:3rem;align-items:flex-start;}
+.about-vertical{
+  writing-mode:vertical-rl;
+  transform:rotate(180deg);
+  font-size:4.2rem;
+  font-weight:800;
+  letter-spacing:10px;
+  text-transform:uppercase;
+  background:var(--grad);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  position:sticky;
+  top:110px;
+  flex:0 0 50%;
+  align-self:flex-start;
+  padding-left:0.4rem;
+  border-left:3px solid var(--accent-1);
+  line-height:1;
+  user-select:none;
+  display:flex;
+  justify-content:flex-start;
+}
+.about-content{flex:0 0 50%;min-width:0;}
+.about-content .section-header{text-align:left;margin-bottom:2.5rem;}
+.about-content .section-header .section-title{display:none;}
+.about-content .section-subtitle{margin:0;max-width:none;}
+.about-grid{display:flex;flex-direction:column;gap:1.2rem;}
+.about-card{
+  background:var(--card);border:1px solid var(--card-border);border-radius:20px;
+  padding:1.2rem;transition:all 0.3s var(--ease);
+}
+.about-card:hover{border-color:rgba(192,132,252,0.4);transform:translateY(-4px);}
+.about-label{font-size:0.7rem;font-weight:700;letter-spacing:2px;color:var(--accent-2);margin-bottom:0.6rem;text-transform:uppercase;}
+.about-heading{font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.6rem;}
+.about-heading i{color:var(--accent-2);}
+.about-text{color:var(--text-3);margin-bottom:0.6rem;font-size:0.95rem;line-height:1.5;}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.7rem;}
+.info-item{
+  display:flex;align-items:center;gap:0.5rem;padding:0.55rem 0.7rem;
+  background:rgba(168,85,247,0.07);border:1px solid var(--card-border);border-radius:12px;
+  transition:all 0.3s var(--ease);
+}
+.info-item:hover{background:rgba(168,85,247,0.14);border-color:var(--accent-1);transform:translateY(-3px);}
+.info-icon{width:28px;height:28px;flex-shrink:0;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  background:rgba(168,85,247,0.2);color:var(--accent-2);font-size:0.8rem;}
+.info-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-4);}
+.info-value{font-weight:600;color:#fff;font-size:0.85rem;word-break:break-word;}
+.timeline{position:relative;margin-top:0.7rem;padding-left:1.5rem;}
+.timeline::before{content:'';position:absolute;left:6px;top:6px;bottom:6px;width:3px;background:var(--grad);border-radius:3px;}
+.tl-item{position:relative;padding-bottom:1.2rem;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-dot{position:absolute;left:-1.5rem;top:3px;width:14px;height:14px;border-radius:50%;background:var(--accent-1);
+  border:3px solid var(--bg);box-shadow:0 0 0 3px rgba(168,85,247,0.4);}
+.tl-card{
+  background:rgba(255,255,255,0.02);border:1px solid var(--card-border);border-radius:14px;padding:0.9rem 1rem;
+  transition:all 0.3s var(--ease);
+}
+.tl-card:hover{border-color:var(--accent-1);transform:translateX(6px);box-shadow:0 8px 24px rgba(168,85,247,0.18);}
+.tl-head{display:flex;justify-content:space-between;align-items:flex-start;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.4rem;}
+.tl-title{font-size:1rem;font-weight:700;color:#fff;line-height:1.3;}
+.tl-company{color:var(--accent-2);font-weight:500;font-size:0.8rem;margin-top:0.15rem;}
+.tl-date{background:rgba(168,85,247,0.15);color:var(--accent-2);padding:0.25rem 0.7rem;border-radius:20px;font-size:0.78rem;font-weight:600;white-space:nowrap;}
+.tl-list{list-style:none;margin-top:0.6rem;padding:0;}
+.tl-list li{position:relative;padding-left:1.1rem;margin-bottom:0.4rem;color:var(--text-3);font-size:0.85rem;line-height:1.5;}
+.tl-list li::before{content:'▹';position:absolute;left:0;color:var(--accent-4);font-weight:bold;}
+.tl-desc{color:var(--text-3);font-size:0.85rem;margin:0.4rem 0 0.3rem;line-height:1.5;}
+.skills-grid{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:0.8rem;}
+.skill-cat{
+  background:rgba(255,255,255,0.02);border:1px solid var(--card-border);border-radius:14px;padding:1.1rem;
+  transition:all 0.3s var(--ease);
+}
+.skill-cat:hover{border-color:rgba(192,132,252,0.4);transform:translateY(-3px);}
+.skill-head{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.9rem;}
+.skill-ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  background:var(--grad);color:#fff;font-size:1rem;flex-shrink:0;}
+.skill-name{font-size:1rem;font-weight:700;color:#fff;}
+.skill-tags{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.skill-tag{background:rgba(168,85,247,0.13);border:1px solid var(--card-border);color:var(--accent-2);
+  padding:0.35rem 0.75rem;border-radius:20px;font-size:0.82rem;font-weight:600;transition:all 0.3s var(--ease);}
+.skill-tag:hover{background:var(--grad);color:#fff;border-color:transparent;}
+.portfolio{padding:7rem 2rem;background:var(--section-grad);}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem;}
+.project-card{
+  background:var(--card);border:1px solid var(--card-border);border-radius:22px;
+  padding:1.8rem;position:relative;overflow:hidden;
+  transform-style:preserve-3d;transition:transform 0.15s var(--ease),box-shadow 0.3s var(--ease),border-color 0.3s var(--ease);
+  will-change:transform;
+}
+.project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--grad);}
+.project-card:hover{border-color:var(--accent-1);box-shadow:0 22px 48px rgba(168,85,247,0.28);}
+.project-img{width:100%;height:190px;object-fit:cover;border-radius:14px;margin-bottom:1.2rem;border:1px solid var(--card-border);transition:transform 0.3s var(--ease);}
+.project-card:hover .project-img{transform:scale(1.03);}
+.project-ic{font-size:2.6rem;margin-bottom:1rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.project-title{font-size:1.35rem;font-weight:700;color:#fff;margin-bottom:0.6rem;}
+.project-desc{color:var(--text-3);font-size:0.95rem;margin-bottom:1.1rem;}
+.project-tech{display:flex;flex-wrap:wrap;gap:0.45rem;}
+.tech-tag{background:rgba(217,70,239,0.13);border:1px solid rgba(217,70,239,0.3);color:var(--accent-2);
+  padding:0.35rem 0.8rem;border-radius:20px;font-size:0.82rem;font-weight:600;}
+.coming-soon{display:inline-block;margin-top:0.5rem;background:var(--grad-2);color:#fff;padding:0.4rem 1rem;border-radius:20px;font-size:0.85rem;font-weight:700;}
+.certs{padding:7rem 2rem;background:var(--section-grad);}
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;}
+.cert-card{background:var(--card);border:1px solid var(--card-border);border-radius:18px;padding:1.3rem;position:relative;overflow:hidden;cursor:pointer;text-align:center;transition:all 0.3s var(--ease);}
+.cert-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--grad);}
+.cert-card:hover{border-color:var(--accent-1);transform:translateY(-6px);box-shadow:0 16px 36px rgba(168,85,247,0.22);}
+.cert-img{width:100%;height:170px;object-fit:cover;border-radius:12px;margin-bottom:0.9rem;border:1px solid var(--card-border);transition:transform 0.3s var(--ease);}
+.cert-card:hover .cert-img{transform:scale(1.03);border-color:var(--accent-1);}
+.cert-name{font-weight:700;color:#fff;font-size:1rem;margin-bottom:0.3rem;}
+.cert-issuer{font-size:0.88rem;color:var(--text-4);}
+.cert-ic{font-size:2.4rem;margin-bottom:0.8rem;color:var(--accent-2);}
+.contact{padding:7rem 2rem;background:var(--section-grad);}
+.contact-card{max-width:760px;margin:0 auto;background:var(--card);border:1px solid var(--card-border);border-radius:24px;padding:3rem 2rem;text-align:center;}
+.contact-title{font-size:2.2rem;font-weight:800;color:#fff;margin-bottom:0.6rem;}
+.contact-sub{color:var(--text-4);margin-bottom:2rem;font-size:1rem;}
+.contact-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1.5rem;}
+.contact-link{display:inline-flex;align-items:center;gap:0.7rem;background:rgba(168,85,247,0.1);border:1px solid var(--card-border);padding:0.8rem 1.3rem;border-radius:50px;text-decoration:none;color:#fff;font-weight:600;font-size:0.95rem;transition:all 0.3s var(--ease);}
+.contact-link:hover{background:var(--grad);border-color:transparent;transform:translateY(-3px);box-shadow:0 10px 26px rgba(168,85,247,0.4);}
+.contact-link i{font-size:1.1rem;}
+.contact-loc{color:var(--text-4);font-size:0.95rem;margin-top:0.5rem;}
+.footer{padding:2rem;text-align:center;border-top:1px solid var(--glass-border);color:var(--text-4);font-size:0.95rem;background:var(--bg);}
+.footer a{color:var(--accent-2);text-decoration:none;}
+.reveal{opacity:0;transform:translateY(60px);transition:opacity 0.8s var(--ease),transform 0.8s var(--ease);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+@media (max-width:1024px){
+  .hero-container{grid-template-columns:1fr;text-align:center;gap:2rem;}
+  .hero-desc{margin:0 auto 2.2rem;}
+  .hero-buttons{justify-content:center;}
+  .profile-wrapper{order:-1;}
+}
+@media (max-width:768px){
+  .section,.about,.portfolio,.certs,.contact{padding:4rem 1.3rem;}
+  .hero{padding:6rem 1.3rem 3rem;}
+  .section-title{font-size:2rem;}
+  .hero-name{font-size:2.4rem;}
+  .hero-subtitle{font-size:1.1rem;}
+  .hero-desc{font-size:0.95rem;}
+  .nav-links{
+    position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);
+    flex-direction:row;gap:0.2rem;
+    background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    border:1px solid var(--glass-border);border-radius:50px;
+    padding:0.5rem 0.7rem;margin:0;width:auto;max-width:calc(100% - 2rem);
+    justify-content:space-around;
+  }
+  .nav-links a{font-size:0.78rem;padding:0.45rem 0.6rem;}
+  .lang-toggle{display:none;}
+  .info-grid{grid-template-columns:1fr;}
+  .about-layout{flex-direction:column;gap:1.2rem;}
+  .about-vertical{
+    writing-mode:horizontal-tb;
+    transform:none;
+    position:static;
+    font-size:2.1rem;
+    letter-spacing:3px;
+    padding-left:0;
+    padding-bottom:0.6rem;
+    border-left:none;
+    border-bottom:3px solid var(--accent-1);
+    flex:0 0 auto;
+  }
+  .about-content{flex:1 1 auto;}
+}
+@media (max-width:480px){
+  .hero-name{font-size:2rem;}
+  .profile-container{width:230px;height:230px;}
+  .hero-buttons{flex-direction:column;align-items:stretch;}
+  .btn{justify-content:center;}
+  .contact-links{flex-direction:column;align-items:center;}
+}
+.paper-overlay{
+  position:fixed;inset:0;z-index:9999;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;opacity:0;perspective:1200px;
+}
+.paper-overlay.active{opacity:1;pointer-events:auto;}
+.paper-fold{
+  width:180px;height:240px;position:relative;
+  transform-style:preserve-3d;
+  background:linear-gradient(135deg,#f5f0e6 0%,#e8e0d0 100%);
+  border-radius:4px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+  transform:scale(0.3) rotateY(-40deg);
+  opacity:0;
+}
+.paper-overlay.active .paper-fold{
+  animation:paperGrab 0.45s cubic-bezier(0.34,1.56,0.64,1) forwards,
+             paperUnfold 0.5s cubic-bezier(0.7,0,0.3,1) 0.45s forwards,
+             paperVanish 0.4s ease-in 0.95s forwards;
+}
+@keyframes paperGrab{
+  0%{transform:scale(0.3) rotateY(-40deg);opacity:0;}
+  60%{transform:scale(1.08) rotateY(5deg);opacity:1;}
+  100%{transform:scale(1) rotateY(0deg);opacity:1;}
+}
+@keyframes paperUnfold{
+  0%{transform:scale(1) rotateY(0deg);}
+  100%{transform:scale(1) rotateY(180deg);}
+}
+@keyframes paperVanish{
+  0%{opacity:1;transform:scale(1) rotateY(180deg);}
+  100%{opacity:0;transform:scale(0.6) rotateY(180deg);}
+}
+.paper-overlay.closing .paper-fold{animation:none;opacity:0;transform:scale(0.6) rotateY(180deg);transition:all 0.25s ease;}
+@media (prefers-reduced-motion: reduce){
+  .paper-fold, .paper-overlay.closing .paper-fold{animation:none !important;transition:none !important;}
+}
+</style>
+</head>
+<body>
+<div class="loading-screen" id="loadingScreen">
+  <div class="loader-ring"></div>
+  <div class="loader-text" data-i18n="loadName">Thifal Salsabila</div>
+  <div class="loader-dots"><div class="loader-dot"></div><div class="loader-dot"></div><div class="loader-dot"></div></div>
+</div>
+
+<nav class="navbar" id="navbar">
+  <div class="logo">TS</div>
+  <ul class="nav-links">
+    <li><a href="#home" data-i18n="navHome">Beranda</a></li>
+    <li><a href="#about" data-i18n="navAbout">Tentang</a></li>
+    <li><a href="#portfolio" data-i18n="navPortfolio">Portfolio</a></li>
+    <li><a href="#certs" data-i18n="navCerts">Sertifikasi</a></li>
+    <li><a href="#contact" data-i18n="navContact">Kontak</a></li>
+  </ul>
+  <button class="lang-toggle" id="langToggle"><i class="fas fa-language"></i> <span>EN</span></button>
+  <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+</nav>
+
+<section id="home" class="hero">
+  <div class="hero-container">
+    <div class="hero-content reveal">
+      <span class="hero-name">Thifal Salsabila</span>
+      <p class="hero-subtitle" data-i18n="heroSubtitle">Data Analyst & Web Developer</p>
+      <p class="hero-desc" data-i18n="heroDesc">Lulusan Teknik Informatika dengan keahlian dalam pengolahan dan analisis data, pengelolaan basis data, serta pengembangan website sederhana. Berpengalaman mengelola dan menganalisis data operasional melalui magang di PT PLN (Persero) UP3. Terampil menggunakan Microsoft Excel, SQL, Looker Studio, serta dasar Python, HTML, dan PHP dengan IPK 3,66/4,00.</p>
+      <div class="hero-contact">
+        <a href="tel:085261951882" class="hero-contact-item">
+          <i class="fas fa-phone-alt"></i>
+          <span>085261951882</span>
+        </a>
+        <a href="mailto:thifalssbl21@gmail.com" class="hero-contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>thifalssbl21@gmail.com</span>
+        </a>
+        <span class="hero-contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Lhokseumawe, Aceh, Indonesia</span>
+        </span>
+      </div>
+      <div class="hero-buttons">
+        <a href="#portfolio" class="btn btn-primary"><span data-i18n="heroCtaPortfolio">Lihat Portfolio</span> <i class="fas fa-arrow-right"></i></a>
+        <a href="#about" class="btn btn-outline"><span data-i18n="heroCtaAbout">Tentang Saya</span></a>
+      </div>
+    </div>
+    <div class="profile-wrapper reveal">
+      <div class="profile-container">
+        <img src="poto.jpeg" alt="Thifal Salsabila" class="profile-photo">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="section-container">
+    <div class="about-layout">
+      <div class="about-vertical" data-i18n="navAbout">Tentang</div>
+      <div class="about-content">
+        <div class="section-header reveal">
+          <h2 class="section-title" data-i18n="aboutTitle">Tentang <span class="gradient-text">Saya</span></h2>
+          <p class="section-subtitle" data-i18n="aboutSubtitle">Mengenal lebih dekat latar belakang dan kualifikasi profesional saya</p>
+        </div>
+        <div class="about-grid">
+      <div class="about-card reveal">
+        <h3 class="about-heading"><i class="fas fa-user"></i> <span data-i18n="aboutProfileHeading">Profil</span></h3>
+        <p class="about-text" data-i18n="aboutP1">Lulusan Teknik Informatika dengan pengalaman praktis sebagai Staf Administrasi dan pemahaman dasar pengembangan web. Memiliki kemampuan terorganisir yang baik dalam mengelola dokumen, laporan, dan data secara sistematis.</p>
+        <p class="about-text" data-i18n="aboutP2">Terbiasa bekerja dengan Microsoft Office (Word, Excel, PowerPoint), Canva, dan Google Workspace untuk kebutuhan administrasi dan pengolahan data. Memiliki dasar teknis dalam HTML, PHP, dan Python serta mampu memberikan dukungan teknis dasar untuk troubleshooting komputer dan jaringan.</p>
+        <p class="about-text" data-i18n="aboutP3">Detail-oriented, bertanggung jawab, dan mampu bekerja secara mandiri maupun dalam tim. Berkomitmen untuk memberikan kontribusi optimal dalam setiap tugas yang dipercayakan.</p>
+        <div class="info-grid">
+          <div class="info-item"><div class="info-icon"><i class="fas fa-map-marker-alt"></i></div><div><div class="info-label" data-i18n="infoLocation">Lokasi</div><div class="info-value">Lhokseumawe, Aceh</div></div></div>
+          <div class="info-item"><div class="info-icon"><i class="fas fa-graduation-cap"></i></div><div><div class="info-label" data-i18n="infoEducation">Pendidikan</div><div class="info-value">S1 Teknik Informatika</div></div></div>
+          <div class="info-item"><div class="info-icon"><i class="fas fa-star"></i></div><div><div class="info-label" data-i18n="infoGpa">IPK</div><div class="info-value">3,66/4,00</div></div></div>
+          <div class="info-item"><div class="info-icon"><i class="fab fa-linkedin-in"></i></div><div><div class="info-label">LinkedIn</div><div class="info-value">thifalsalsabila21</div></div></div>
+        </div>
+      </div>
+
+      <div class="about-card reveal">
+        <h3 class="about-heading"><i class="fas fa-briefcase"></i> <span data-i18n="expTitle">Pengalaman Kerja</span></h3>
+        <div class="timeline">
+          <div class="tl-item">
+            <span class="tl-dot"></span>
+            <div class="tl-card">
+              <div class="tl-head">
+                <div><div class="tl-title" data-i18n="exp1Title">IT Operations Support Intern</div><div class="tl-company" data-i18n="exp1Company">PT ASABRI Persero, Lhokseumawe</div></div>
+                <span class="tl-date">Jun 2026 - Jul 2026</span>
+              </div>
+              <ul class="tl-list">
+                <li data-i18n="exp1Li1">Mendukung kegiatan operasional melalui penggunaan aplikasi dan sistem internal perusahaan dalam proses pengelolaan dan persetujuan data.</li>
+                <li data-i18n="exp1Li2">Mengoperasikan aplikasi internal untuk membantu proses pengajuan dan approval SPTB sesuai dengan prosedur yang berlaku.</li>
+                <li data-i18n="exp1Li3">Menggunakan aplikasi CSMOB dalam mendukung pelaksanaan administrasi dan kebutuhan operasional perusahaan.</li>
+                <li data-i18n="exp1Li4">Membuat materi desain sesuai kebutuhan informasi dan kegiatan internal.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="tl-item">
+            <span class="tl-dot"></span>
+            <div class="tl-card">
+              <div class="tl-head">
+                <div><div class="tl-title" data-i18n="exp2Title">IT Support</div><div class="tl-company" data-i18n="exp2Company">PT PLN (Persero) UP3, Lhokseumawe</div></div>
+                <span class="tl-date">Jul 2025 - Agu 2025</span>
+              </div>
+              <ul class="tl-list">
+                <li data-i18n="exp2Li1">Mengolah dan menganalisis sekitar 700+ data trafo dari beberapa kecamatan menggunakan Microsoft Excel untuk rekapitulasi operasional.</li>
+                <li data-i18n="exp2Li2">Menyusun laporan ringkasan dan melakukan rekapitulasi data sebagai pendukung kegiatan kerja.</li>
+                <li data-i18n="exp2Li3">Mengelola unggahan data dan dokumen teknis di sistem perusahaan serta memberikan pendampingan kerja kepada peserta magang baru sesuai prosedur.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="tl-item">
+            <span class="tl-dot"></span>
+            <div class="tl-card">
+              <div class="tl-head">
+                <div><div class="tl-title" data-i18n="exp3Title">Freelance Website Administrator</div><div class="tl-company" data-i18n="exp3Company">Project PT PLN (Persero) UP3 Lhokseumawe</div></div>
+                <span class="tl-date">Sept 2025 - Sekarang</span>
+              </div>
+              <ul class="tl-list">
+                <li data-i18n="exp3Li1">Mengelola dan memperbarui data website secara berkala sesuai prosedur operasional untuk memastikan informasi selalu terkini.</li>
+                <li data-i18n="exp3Li2">Memverifikasi dan memvalidasi 500+ data sebelum dan sesudah publikasi guna menjaga akurasi dan konsistensi data.</li>
+                <li data-i18n="exp3Li3">Menata penyimpanan data digital agar aman, terstruktur, dan mudah diakses sesuai standar kerja.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-card reveal">
+        <h3 class="about-heading"><i class="fas fa-graduation-cap"></i> <span data-i18n="eduTitle">Riwayat Pendidikan</span></h3>
+        <div class="timeline">
+          <div class="tl-item">
+            <span class="tl-dot"></span>
+            <div class="tl-card">
+              <div class="tl-head">
+                <div><div class="tl-title" data-i18n="edu1Degree">S1 Teknik Informatika</div><div class="tl-company">Universitas Malikussaleh</div></div>
+                <span class="tl-date" data-i18n="edu1Year">2020 - 2024</span>
+              </div>
+              <p class="tl-desc" data-i18n="edu1Desc">Mempelajari dasar pemrograman, sistem informasi, jaringan komputer, dan manajemen basis data. Terlibat dalam proyek pengembangan aplikasi berbasis web selama perkuliahan.</p>
+              <ul class="tl-list"><li data-i18n="edu1Gpa">IPK: 3,66/4,00</li></ul>
+            </div>
+          </div>
+          <div class="tl-item">
+            <span class="tl-dot"></span>
+            <div class="tl-card">
+              <div class="tl-head">
+                <div><div class="tl-title" data-i18n="edu2Degree">SMA NEGERI 1 LHOKSEUMAWE</div><div class="tl-company">Lhokseumawe</div></div>
+                <span class="tl-date" data-i18n="edu2Year">2018 - 2021</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-card reveal">
+        <h3 class="about-heading"><i class="fas fa-lightbulb"></i> <span data-i18n="skillTitle">Keahlian</span></h3>
+        <div class="skills-grid">
+          <div class="skill-cat">
+            <div class="skill-head"><div class="skill-ic"><i class="fas fa-microchip"></i></div><div class="skill-name" data-i18n="skillTechTitle">Technical Skills</div></div>
+            <div class="skill-tags">
+              <span class="skill-tag">Data Analysis</span>
+              <span class="skill-tag">Microsoft Excel (IF, VLOOKUP, HLOOKUP)</span>
+              <span class="skill-tag">SQL & MySQL</span>
+              <span class="skill-tag">Looker Studio</span>
+              <span class="skill-tag">Google Sheets</span>
+              <span class="skill-tag">Basic HTML</span>
+              <span class="skill-tag">PHP</span>
+              <span class="skill-tag">Basic Python</span>
+              <span class="skill-tag">Website & System Data Management</span>
+              <span class="skill-tag">Microsoft Office</span>
+            </div>
+          </div>
+          <div class="skill-cat">
+            <div class="skill-head"><div class="skill-ic"><i class="fas fa-users"></i></div><div class="skill-name" data-i18n="skillGeneralTitle">Professional Skills</div></div>
+            <div class="skill-tags">
+              <span class="skill-tag">Data & Document Management</span>
+              <span class="skill-tag">Data Entry & Verification</span>
+              <span class="skill-tag">Report Preparation & Data Recapitulation</span>
+              <span class="skill-tag">Attention to Detail</span>
+              <span class="skill-tag">Problem Solving</span>
+              <span class="skill-tag">Team Collaboration</span>
+              <span class="skill-tag">Communication</span>
+              <span class="skill-tag">Time Management</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="portfolio" class="portfolio">
+  <div class="section-container">
+    <div class="section-header reveal">
+      <h2 class="section-title" data-i18n="portTitle">Portfolio <span class="gradient-text">Project</span></h2>
+      <p class="section-subtitle" data-i18n="portSubtitle">Beberapa project yang telah saya kerjakan</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <img src="projek1.jpeg" alt="Dashboard Analisis Data Trafo" class="project-img">
+        <h3 class="project-title" data-i18n="project1Title">Dashboard Analisis Data Trafo</h3>
+        <p class="project-desc" data-i18n="project1Desc">Dashboard interaktif untuk visualisasi dan analisis data trafo dari berbagai kecamatan menggunakan Looker Studio. Membantu monitoring dan pengambilan keputusan operasional.</p>
+        <div class="project-tech"><span class="tech-tag">Looker Studio</span><span class="tech-tag">Excel</span><span class="tech-tag">Data Analysis</span></div>
+      </div>
+      <div class="project-card reveal">
+        <img src="projek2.png" alt="Portfolio Website" class="project-img">
+        <h3 class="project-title" data-i18n="project2Title">Portfolio Website</h3>
+        <p class="project-desc" data-i18n="project2Desc">Website portfolio profesional dengan fitur multilingual (ID/EN), desain responsif, dan animasi modern. Dibangun dengan HTML, CSS, dan JavaScript murni.</p>
+        <div class="project-tech"><span class="tech-tag">HTML</span><span class="tech-tag">CSS</span><span class="tech-tag">JavaScript</span></div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-ic"><i class="fas fa-clock"></i></div>
+        <h3 class="project-title" data-i18n="project3Title">Project Mendatang</h3>
+        <p class="project-desc" data-i18n="project3Desc">Saya sedang mengerjakan beberapa project menarik. Nantikan update selengkapnya di sini!</p>
+        <span class="coming-soon" data-i18n="comingSoon">Coming Soon</span>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="certs" class="certs">
+  <div class="section-container">
+    <div class="section-header reveal">
+      <h2 class="section-title" data-i18n="certTitle">Sertifikasi <span class="gradient-text">dan Pelatihan</span></h2>
+      <p class="section-subtitle" data-i18n="certSubtitle">Sertifikasi profesional yang telah saya peroleh</p>
+    </div>
+      <div class="certs-grid">
+        <div class="cert-card reveal"><img src="Sertif1.jpeg" alt="Bootcamp Data Analyst KarirNex" class="cert-img"><div class="cert-name" data-i18n="cert1Name">Bootcamp Data Analyst KarirNex</div><div class="cert-issuer" data-i18n="cert1Issuer">KarirNex</div></div>
+        <div class="cert-card reveal"><img src="Sertif2.jpeg" alt="Bootcamp Excel Data Analyst Ioda Academy" class="cert-img"><div class="cert-name" data-i18n="cert2Name">Bootcamp Excel Data Analyst Ioda Academy</div><div class="cert-issuer" data-i18n="cert2Issuer">Ioda Academy</div></div>
+        <div class="cert-card reveal"><img src="Sertif3.jpeg" alt="Bootcamp Microsoft Excel Karirnex" class="cert-img"><div class="cert-name" data-i18n="cert3Name">Bootcamp Microsoft Excel Karirnex</div><div class="cert-issuer" data-i18n="cert3Issuer">Karirnex</div></div>
+        <div class="cert-card reveal"><img src="Sertif5.jpeg" alt="Sertifikat TOEFL" class="cert-img"><div class="cert-name" data-i18n="cert4Name">Sertifikat TOEFL</div><div class="cert-issuer" data-i18n="cert4Issuer">Sertifikat</div></div>
+      </div>
+  </div>
+</section>
+<section id="contact" class="contact">
+  <div class="section-container">
+    <div class="section-header reveal">
+      <h2 class="section-title" data-i18n="contactTitle">Hubungi <span class="gradient-text">Saya</span></h2>
+      <p class="section-subtitle" data-i18n="contactSubtitle">Tersedia untuk peluang kerja dan kolaborasi</p>
+    </div>
+    <div class="contact-card reveal">
+      <h3 class="contact-title"><i class="fas fa-handshake"></i> <span data-i18n="contactCardTitle">Mari Terhubung!</span></h3>
+      <p class="contact-sub" data-i18n="contactCardSubtitle">Saya terbuka untuk peluang kerja, proyek freelance, atau diskusi profesional</p>
+      <div class="contact-links">
+        <a href="mailto:thifalssbl21@gmail.com" class="contact-link"><i class="fas fa-envelope"></i> <span>thifalssbl21@gmail.com</span></a>
+        <a href="tel:085261951882" class="contact-link"><i class="fas fa-phone-alt"></i> <span>085261951882</span></a>
+        <a href="https://wa.me/6285261951882" target="_blank" class="contact-link"><i class="fab fa-whatsapp"></i> <span>WhatsApp</span></a>
+        <a href="https://github.com/thifalsalsabila" target="_blank" class="contact-link"><i class="fab fa-github"></i> <span>GitHub</span></a>
+        <a href="https://linkedin.com/in/thifalsalsabila21" target="_blank" class="contact-link"><i class="fab fa-linkedin-in"></i> <span>LinkedIn</span></a>
+      </div>
+      <p class="contact-loc"><i class="fas fa-map-marker-alt"></i> <span data-i18n="contactLocation">Lhokseumawe, Aceh, Indonesia</span></p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p data-i18n="footerText">© 2026 Thifal Salsabila — Portofolio Profesional | Data Analyst & Web Developer</p>
+</footer>
+
+<div class="paper-overlay" id="paperOverlay" aria-hidden="true">
+  <div class="paper-fold"></div>
+</div>
+
+<script>
+const translations = {
+  id: {
+    loadName: "Thifal Salsabila",
+    navHome: "Beranda",
+    navAbout: "Tentang",
+    navPortfolio: "Portfolio",
+    navCerts: "Sertifikasi",
+    navContact: "Kontak",
+    heroSubtitle: "Data Analyst & Web Developer",
+    heroDesc: "Lulusan Teknik Informatika dengan keahlian dalam pengolahan dan analisis data, pengelolaan basis data, serta pengembangan website sederhana. Berpengalaman mengelola dan menganalisis data operasional melalui magang di PT PLN (Persero) UP3. Terampil menggunakan Microsoft Excel, SQL, Looker Studio, serta dasar Python, HTML, dan PHP dengan IPK 3,66/4,00.",
+    heroCtaContact: "Hubungi Saya",
+    heroCtaPortfolio: "Lihat Portfolio",
+    heroCtaAbout: "Tentang Saya",
+    heroCtaDownload: "Download CV",
+    aboutTitle: "Tentang Saya",
+    aboutSubtitle: "Mengenal lebih dekat latar belakang dan kualifikasi profesional saya",
+    aboutProfileHeading: "Profil",
+    aboutP1: "Lulusan Teknik Informatika Universitas Malikussaleh dengan IPK 3,66/4,00 yang memiliki minat dan pengalaman di bidang teknologi informasi, pengembangan dan pengelolaan website, database, serta administrasi dan pengolahan data. Memiliki pengalaman dalam memperbarui dan memvalidasi data pada website, mengolah data operasional, mengelola data dan dokumen digital, serta memberikan dukungan teknis terhadap perangkat dan sistem.",
+    aboutP2: "Terampil dalam Microsoft Excel (IF, VLOOKUP, HLOOKUP), SQL, MySQL, Looker Studio, Google Sheets, serta dasar HTML, PHP, dan Python.",
+    aboutP3: "Memiliki kemampuan analitis yang baik, teliti, serta mampu bekerja secara sistematis baik secara individu maupun dalam tim.",
+    infoLocation: "Lokasi",
+    infoEducation: "Pendidikan",
+    infoGpa: "IPK",
+    expTitle: "Pengalaman Kerja",
+    exp1Title: "IT Operations Support Intern",
+    exp1Company: "PT ASABRI Persero, Lhokseumawe",
+    exp1Li1: "Mendukung kegiatan operasional melalui penggunaan aplikasi dan sistem internal perusahaan dalam proses pengelolaan dan persetujuan data.",
+    exp1Li2: "Mengoperasikan aplikasi internal untuk membantu proses pengajuan dan approval SPTB sesuai dengan prosedur yang berlaku.",
+    exp1Li3: "Menggunakan aplikasi CSMOB dalam mendukung pelaksanaan administrasi dan kebutuhan operasional perusahaan.",
+    exp1Li4: "Membuat materi desain sesuai kebutuhan informasi dan kegiatan internal.",
+    exp2Title: "IT Support",
+    exp2Company: "PT PLN (Persero) UP3, Lhokseumawe",
+    exp2Li1: "Mengolah dan menganalisis sekitar 700+ data trafo dari beberapa kecamatan menggunakan Microsoft Excel untuk rekapitulasi operasional.",
+    exp2Li2: "Menyusun laporan ringkasan dan melakukan rekapitulasi data sebagai pendukung kegiatan kerja.",
+    exp2Li3: "Mengelola unggahan data dan dokumen teknis di sistem perusahaan serta memberikan pendampingan kerja kepada peserta magang baru sesuai prosedur.",
+    exp3Title: "Freelance Website Administrator",
+    exp3Company: "Project PT PLN (Persero) UP3 Lhokseumawe",
+    exp3Li1: "Mengelola dan memperbarui data website secara berkala sesuai prosedur operasional untuk memastikan informasi selalu terkini.",
+    exp3Li2: "Memverifikasi dan memvalidasi 500+ data sebelum dan sesudah publikasi guna menjaga akurasi dan konsistensi data.",
+    exp3Li3: "Menata penyimpanan data digital agar aman, terstruktur, dan mudah diakses sesuai standar kerja.",
+    eduTitle: "Riwayat Pendidikan",
+    edu1Degree: "S1 Teknik Informatika",
+    edu1Year: "2020 - 2024",
+    edu1Gpa: "IPK: 3,66/4,00",
+    edu1Desc: "Mempelajari dasar pemrograman, sistem informasi, jaringan komputer, dan manajemen basis data. Terlibat dalam proyek pengembangan aplikasi berbasis web selama perkuliahan.",
+    edu2Degree: "SMA NEGERI 1 LHOKSEUMAWE",
+    edu2Year: "2018 - 2021",
+    skillTitle: "Keahlian",
+    skillGeneralTitle: "Professional Skills",
+    skillTechTitle: "Technical Skills",
+    portTitle: "Portfolio Project",
+    portSubtitle: "Beberapa project yang telah saya kerjakan",
+    project1Title: "Dashboard Analisis Data Trafo",
+    project1Desc: "Dashboard interaktif untuk visualisasi dan analisis data trafo dari berbagai kecamatan menggunakan Looker Studio. Membantu monitoring dan pengambilan keputusan operasional.",
+    project2Title: "Portfolio Website",
+    project2Desc: "Website portfolio profesional dengan fitur multilingual (ID/EN), desain responsif, dan animasi modern. Dibangun dengan HTML, CSS, dan JavaScript murni.",
+    project3Title: "Project Mendatang",
+    project3Desc: "Saya sedang mengerjakan beberapa project menarik. Nantikan update selengkapnya di sini!",
+    comingSoon: "Coming Soon",
+    certTitle: "Sertifikasi dan Pelatihan",
+    certSubtitle: "Sertifikasi profesional yang telah saya peroleh",
+    cert1Name: "Bootcamp Data Analyst KarirNex",
+    cert1Issuer: "KarirNex",
+    cert2Name: "Bootcamp Excel Data Analyst Ioda Academy",
+    cert2Issuer: "Ioda Academy",
+    cert3Name: "Bootcamp Microsoft Excel Karirnex",
+    cert3Issuer: "Karirnex",
+    cert4Name: "Sertifikat TOEFL",
+    cert4Issuer: "Sertifikat",
+    cert5Name: "Sertifikat TOEFL",
+    cert5Issuer: "Sertifikat",
+    cert6Name: "Bootcamp Microsoft Excel",
+    cert6Issuer: "Bootcamp",
+    contactTitle: "Hubungi Saya",
+    contactSubtitle: "Tersedia untuk peluang kerja dan kolaborasi",
+    contactCardTitle: "Mari Terhubung!",
+    contactCardSubtitle: "Saya terbuka untuk peluang kerja, proyek freelance, atau diskusi profesional",
+    contactLocation: "Lhokseumawe, Aceh, Indonesia",
+    footerText: "© 2026 Thifal Salsabila — Portofolio Profesional | Data Analyst & Web Developer"
+  },
+  en: {
+    loadName: "Thifal Salsabila",
+    navHome: "Home",
+    navAbout: "About",
+    navPortfolio: "Portfolio",
+    navCerts: "Certifications",
+    navContact: "Contact",
+    heroSubtitle: "Data Analyst & Web Developer",
+    heroDesc: "Informatics Engineering graduate from Universitas Malikussaleh with GPA 3.66/4.00, with interest and experience in information technology, website development and management, databases, as well as administration and data processing. Has experience in updating and validating website data, processing operational data, managing digital data and documents, and providing technical support for devices and systems.",
+    heroCtaContact: "Contact Me",
+    heroCtaPortfolio: "View Portfolio",
+    heroCtaAbout: "About Me",
+    heroCtaDownload: "Download CV",
+    aboutTitle: "About Me",
+    aboutSubtitle: "Learn more about my background and professional qualifications",
+    aboutProfileHeading: "Profile",
+    aboutP1: "Informatics Engineering graduate from Universitas Malikussaleh with GPA 3.66/4.00, with interest and experience in information technology, website development and management, databases, as well as administration and data processing. Has experience in updating and validating website data, processing operational data, managing digital data and documents, and providing technical support for devices and systems.",
+    aboutP2: "Proficient in Microsoft Excel (IF, VLOOKUP, HLOOKUP), SQL, MySQL, Looker Studio, Google Sheets, as well as basic HTML, PHP, and Python.",
+    aboutP3: "Possesses good analytical skills, attention to detail, and able to work systematically both independently and in a team.",
+    infoLocation: "Location",
+    infoEducation: "Education",
+    infoGpa: "GPA",
+    expTitle: "Work Experience",
+    exp1Title: "IT Operations Support Intern",
+    exp1Company: "PT ASABRI Persero, Lhokseumawe",
+    exp1Li1: "Supported operational activities through the use of internal company applications and systems in the process of data management and approval.",
+    exp1Li2: "Operated internal applications to assist the submission and approval process of SPTB in accordance with applicable procedures.",
+    exp1Li3: "Used the CSMOB application to support the implementation of administration and the company's operational needs.",
+    exp1Li4: "Created design materials according to information needs and internal activities.",
+    exp2Title: "IT Support",
+    exp2Company: "PT PLN (Persero) UP3, Lhokseumawe",
+    exp2Li1: "Processed and analyzed around 700+ transformer data from several sub-districts using Microsoft Excel for operational recapitulation",
+    exp2Li2: "Prepared summary reports and performed data recapitulation as work activity support",
+    exp2Li3: "Managed data uploads and technical documents in the company system and provided work mentoring for new internship participants according to procedures",
+    exp3Title: "Freelance Website Administrator",
+    exp3Company: "Project PT PLN (Persero) UP3 Lhokseumawe",
+    exp3Li1: "Managed and updated website data periodically according to operational procedures to ensure information is always up-to-date",
+    exp3Li2: "Verified and validated 500+ data before and after publication to maintain data accuracy and consistency",
+    exp3Li3: "Organized digital data storage to be secure, structured, and easily accessible according to work standards",
+    eduTitle: "Education History",
+    edu1Degree: "S1 Informatics Engineering",
+    edu1Year: "2020 - 2024",
+    edu1Gpa: "GPA: 3.66/4.00",
+    edu1Desc: "Studied basics of programming, information systems, computer networks, and database management. Involved in web-based application development projects during college.",
+    edu2Degree: "SMA NEGERI 1 LHOKSEUMAWE",
+    edu2Year: "2018 - 2021",
+    skillTitle: "Skills",
+    skillGeneralTitle: "Professional Skills",
+    skillTechTitle: "Technical Skills",
+    portTitle: "Portfolio Project",
+    portSubtitle: "Some projects I have worked on",
+    project1Title: "Transformer Data Analysis Dashboard",
+    project1Desc: "Interactive dashboard for visualization and analysis of transformer data from various sub-districts using Looker Studio. Helps monitoring and operational decision making.",
+    project2Title: "Portfolio Website",
+    project2Desc: "Professional portfolio website with multilingual feature (ID/EN), responsive design, and modern animations. Built with pure HTML, CSS, and JavaScript.",
+    project3Title: "Upcoming Project",
+    project3Desc: "I'm working on some exciting projects. Stay tuned for updates here!",
+    comingSoon: "Coming Soon",
+    certTitle: "Certifications and Training",
+    certSubtitle: "Professional certifications I have obtained",
+    cert1Name: "Data Analyst Bootcamp KarirNex",
+    cert1Issuer: "KarirNex",
+    cert2Name: "Excel Data Analyst Bootcamp Ioda Academy",
+    cert2Issuer: "Ioda Academy",
+    cert3Name: "Microsoft Excel Bootcamp Karirnex",
+    cert3Issuer: "Karirnex",
+    cert4Name: "TOEFL Certificate",
+    cert4Issuer: "Certificate",
+    cert5Name: "TOEFL Certificate",
+    cert5Issuer: "Certificate",
+    cert6Name: "Microsoft Excel Bootcamp",
+    cert6Issuer: "Bootcamp",
+    contactTitle: "Contact Me",
+    contactSubtitle: "Available for job opportunities and collaboration",
+    contactCardTitle: "Let's Connect!",
+    contactCardSubtitle: "I'm open to job opportunities, freelance projects, or professional discussions",
+    contactLocation: "Lhokseumawe, Aceh, Indonesia",
+    footerText: "© 2026 Thifal Salsabila — Professional Portfolio | Data Analyst & Web Developer"
+  }
+};
+let currentLang = 'id';
+
+function applyLanguage(lang){
+  currentLang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang][key]) el.textContent = translations[lang][key];
+  });
+  const toggle = document.getElementById('langToggle');
+  toggle.querySelector('span').textContent = (lang === 'id') ? 'EN' : 'ID';
+  localStorage.setItem('preferredLang', lang);
+}
+
+document.getElementById('langToggle').addEventListener('click', () => {
+  applyLanguage(currentLang === 'id' ? 'en' : 'id');
+});
+
+const saved = localStorage.getItem('preferredLang');
+if (saved) applyLanguage(saved);
+
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loadingScreen').classList.add('hidden');
+  }, 1000);
+});
+
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  const overlay = document.getElementById('paperOverlay');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let isPaperAnimating = false;
+
+  document.querySelectorAll('.nav-links a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      const target = document.querySelector(targetId);
+      if (!target || isPaperAnimating) return;
+
+      if (reducedMotion) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+
+      isPaperAnimating = true;
+      overlay.classList.add('active');
+      overlay.classList.remove('closing');
+      setTimeout(() => {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 500);
+      setTimeout(() => {
+        overlay.classList.add('closing');
+        overlay.classList.remove('active');
+      }, 1100);
+      setTimeout(() => {
+        overlay.classList.remove('closing');
+        isPaperAnimating = false;
+      }, 1500);
+    });
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      if (this.closest('.nav-links')) return;
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+function updateActiveNav(){
+  let current = '';
+  const pos = window.scrollY + 140;
+  sections.forEach(sec => {
+    if (pos >= sec.offsetTop && pos < sec.offsetTop + sec.offsetHeight) current = sec.id;
+  });
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+  });
+}
+window.addEventListener('scroll', updateActiveNav);
+updateActiveNav();
+
+const mobileBtn = document.querySelector('.mobile-menu-btn');
+mobileBtn.addEventListener('click', () => {
+  const nav = document.querySelector('.nav-links');
+  nav.style.display = (nav.style.display === 'flex') ? 'none' : 'flex';
+});
+
+const cards = document.querySelectorAll('.project-card');
+cards.forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const rotY = ((x / rect.width) - 0.5) * 16;
+    const rotX = ((0.5 - y / rect.height)) * 16;
+    card.style.transform = 'perspective(1000px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg) translateY(-8px)';
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+  });
+});
+</script>
+</body>
+</html>
