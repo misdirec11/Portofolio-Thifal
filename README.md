@@ -14,7 +14,3 @@ Website portofolio profesional dengan desain modern, animasi interaktif, dan fit
 - CSS3 (Glassmorphism, Grid, Flexbox, Animations)
 - JavaScript (Vanilla JS, Intersection Observer)
 
-## Kontak
-- Email: thifalssbl21@gmail.com
-- WhatsApp: 085261951882
-- LinkedIn: [thifalsalsabila21](https://linkedin.com/in/thifalsalsabila21)
