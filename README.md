@@ -4,7 +4,7 @@ Website portofolio profesional dengan desain modern, animasi interaktif, dan fit
 
 ## Fitur
 - Desain responsif dengan tema gelap dan aksen ungu
-- Animasi paper unfold saat navigasi navbar
+- Animasi warp burst cahaya saat navigasi navbar
 - Section: Beranda, Tentang, Portfolio, Sertifikasi, Kontak
 - Smooth scroll dan reveal animations
 - Loading screen dengan animasi
